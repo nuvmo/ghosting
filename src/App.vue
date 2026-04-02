@@ -114,8 +114,9 @@ export default {
 			localStorage.setItem('interval', this.interval)
 		},
 
-		darkMode() {
-			localStorage.setItem('darkMode', this.darkMode ? 'Y' : 'N')
+		darkMode(val) {
+			localStorage.setItem('darkMode', val ? 'Y' : 'N')
+			document.querySelector('meta[name="theme-color"]').setAttribute('content', val ? '#3d3d3d' : '#FCFCFC')
 		}
 
 	},
