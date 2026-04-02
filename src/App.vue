@@ -117,6 +117,7 @@ export default {
 		darkMode(val) {
 			localStorage.setItem('darkMode', val ? 'Y' : 'N')
 			document.querySelector('meta[name="theme-color"]').setAttribute('content', val ? '#3d3d3d' : '#FCFCFC')
+			document.body.classList.toggle('dark', val)
 		}
 
 	},
