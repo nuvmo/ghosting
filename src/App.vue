@@ -50,7 +50,6 @@
 
 <script>
 
-import NoSleep from 'nosleep.js'
 import StopWatch from './components/StopWatch.vue'
 
 export default {
@@ -123,14 +122,17 @@ export default {
 	mounted () {
 
 		// Wake lock
-		const noSleep = new NoSleep()
-
-		const enableNoSleep = () => {
-			noSleep.enable()
-			document.removeEventListener('touchstart', enableNoSleep, false)
+		if ('wakeLock' in navigator) {
+			const requestWakeLock = async () => {
+				try {
+					await navigator.wakeLock.request('screen')
+				} catch (e) {
+					// Wake lock request failed (e.g. low battery)
+				}
+				document.removeEventListener('touchstart', requestWakeLock, false)
+			}
+			document.addEventListener('touchstart', requestWakeLock, false)
 		}
-
-		document.addEventListener('touchstart', enableNoSleep, false)
 
 		// Get previous settings
 		const darkMode = localStorage.getItem('darkMode')
@@ -180,7 +182,7 @@ export default {
 			clearTimeout(this.flickerTimeout)
 
 			if(this.play) {
-				
+
 				// Countdown
 				let countdown = 5
 				this.buttonText = countdown
