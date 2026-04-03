@@ -1,14 +1,16 @@
 .stopwatch {
-	text-align: center;
-	height: $stopwatch-height;
-	display: grid;
-	align-items: center;
-	justify-items: center;
-	font-size: 6rem;
+    text-align: center;
+    height: $stopwatch-height;
+    font-family: ui-monospace, monospace;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 6rem;
+    padding-top: 20px;
 
-	button {
-		border: 0;
-		border-radius: 10px;
-		padding: 2px 7px;
-	}
+    button {
+        border: 0;
+        border-radius: 10px;
+        padding: 2px 7px;
+    }
 }

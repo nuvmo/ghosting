@@ -1,29 +1,31 @@
 html,
 body {
-	font-family: sans-serif;
-	padding: 0;
-	margin: 0;
-	background: $light-bg;
-	color: $dark-bg;
+    height: 100vh;
+    font-family: sans-serif;
+    padding: 0;
+    margin: 0;
+    background: $light-bg;
+    color: $dark-bg;
+    transition: background 0.3s, color 0.3s;
 
-	&.dark {
-		color: white;
-		background: $dark-bg;
-	}
+    &.dark {
+        color: white;
+        background: $dark-bg;
+    }
 
-	* {
-		padding: 0;
-		margin: 0;
-		box-sizing: border-box;
-	}
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
 }
 
 .app-wrapper {
 
-	.app-container {
-		min-width: 320px;
-		max-width: 500px;
-		margin: 0 auto;
-	}
+    .app-container {
+        min-width: 320px;
+        max-width: 500px;
+        margin: 0 auto;
+    }
 
 }

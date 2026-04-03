@@ -1,8 +1,9 @@
 $dark-bg: #3d3d3d;
 $light-bg: #FCFCFC;
 $gray: rgb(200, 200, 200);
-$stopwatch-height: 100px;
+$stopwatch-height: 130px;
 $range-height: 60px;
-$size: 100px;
-$thickness: 20px;
+$size: 200px;
+$diagonal: sqrt(#{(150 * 150 * 2)});
+$thickness: 30px;
 $play-size: 140px;

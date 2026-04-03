@@ -1,82 +1,113 @@
 .play {
-	position: fixed;
-	height: $play-size;
-	width: $play-size;
-	top: calc(50vh - #{math.div($play-size, 2)});
-	left: calc(50% - #{math.div($play-size, 2)});
+    position: fixed;
+    height: $play-size;
+    width: $play-size;
+    bottom: math.div($play-size, 2);
+    left: calc(50% - #{math.div($play-size, 2)});
 
-	&::before,
-	&::after {
-		content: '';
-		display: block;
-		height: calc(100% + 60px);
-		width: 4px;
-		background: lighten($dark-bg, 50);
-		position: absolute;
-		top: -30px;
-		left: calc(50% - 2px);
-		border-radius: 4px;
-	}
+    &::before,
+    &::after {
+        content: '';
+        display: block;
+        height: calc(100% + 60px);
+        width: 4px;
+        background: lighten($dark-bg, 50);
+        position: absolute;
+        top: -30px;
+        left: calc(50% - 2px);
+        border-radius: 4px;
+    }
 
-	&::after {
-		transform: rotate(90deg);
-		z-index: 0;
-	}
+    &::after {
+        transform: rotate(90deg);
+        z-index: 0;
+    }
 
-	button {
-		border: 0;
-		border-radius: 100%;
-		display: block;
-		height: 100%;
-		width: 100%;
-		font-size: 3.5rem;
-		padding: 0;
-		color: rgb(61, 61, 61);
-		position: relative;
-		z-index: 2;
-	}
+    button {
+        border: 0;
+        border-radius: 100%;
+        display: block;
+        height: 100%;
+        width: 100%;
+        font-size: 3.5rem;
+        padding: 0;
+        color: rgb(61, 61, 61);
+        position: relative;
+        z-index: 2;
+        transition: transform 0.1s;
 
-	div {
-		position: absolute;
-		height: calc(100% + 20px);
-		width: calc(100% + 20px);
-		border-radius: 100%;
-		top: -10px;
-		left: -10px;
-		z-index: 1;
-		background: $light-bg;
-		.dark & {
-			background: $dark-bg;
-		}
+        &:active {
+            transform: scale(0.96);
+        }
+    }
 
-		&::after {
-			content: '';
-			display: block;
-			width: 34px;
-			height: 60px;
-			border-radius: 20px;
-			background: rgb(17, 222, 20);
-			position: absolute;
-			left: calc(50% - 17px);
-			top: -20px;
-		}
+    div {
+        position: absolute;
+        height: calc(100% + 20px);
+        width: calc(100% + 20px);
+        border-radius: 100%;
+        top: -10px;
+        left: -10px;
+        z-index: 1;
+        background: $light-bg;
 
-		.dark &::after {
-			background: red;
-		}
+        .dark & {
+            background: $dark-bg;
+        }
 
-		&.active {
-			animation: border 3s linear infinite forwards;
-		}
-	}
+        &::after {
+            content: '';
+            display: block;
+            width: 34px;
+            height: 60px;
+            border-radius: 20px;
+            background: rgb(17, 222, 20);
+            position: absolute;
+            left: calc(50% - 17px);
+            top: -20px;
+        }
+
+        .dark &::after {
+            background: red;
+        }
+
+        &.active {
+            animation: border 3s linear infinite forwards;
+        }
+    }
+}
+
+.countdown-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    font-size: 14rem;
+    font-weight: 300;
+    line-height: 100vh;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.75)
+}
+
+.hint {
+    position: fixed;
+    top: calc(50vh + 110px);
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.85rem;
+    opacity: 0.4;
+    white-space: nowrap;
+    pointer-events: none;
+    margin: 0;
 }
 
 @keyframes border {
-	0% {
-		transform: rotate(0deg);
-	}
+    0% {
+        transform: rotate(0deg);
+    }
 
-	100% {
-		transform: rotate(360deg);
-	}
+    100% {
+        transform: rotate(360deg);
+    }
 }

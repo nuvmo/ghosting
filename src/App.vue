@@ -30,19 +30,27 @@
 				></div>
 			</div>
 
-			<div class="dark-mode">
-				<label>
-					Dark mode
-					<input v-model="darkMode" type="checkbox" name="darkMode" :checked="darkMode">
-					<div class="toggle"></div>
-				</label>
-			</div>
+			<div v-if="countdown !== null" class="countdown-overlay">{{ countdown }}</div>
+			<p v-if="showHint" class="hint">Tap Go · React to the arrows</p>
 
-			<div class="range">
-				<label>
-					Interval: {{interval}}s
-					<input v-model="interval" type="range" name="interval" id="interval" min="1" max="10" />
-				</label>
+			<button class="settings-toggle" :class="{ open: settingsOpen }" @click="settingsOpen = !settingsOpen">⚙</button>
+
+			<div v-if="settingsOpen" class="modal" @click.self="settingsOpen = false">
+				<div class="settings-panel">
+					<div class="dark-mode">
+						<label>
+							Dark mode
+							<input v-model="darkMode" type="checkbox" name="darkMode" :checked="darkMode">
+							<div class="toggle"></div>
+						</label>
+					</div>
+					<div class="range">
+						<label>
+							Interval: {{interval}}s
+							<input v-model="interval" type="range" name="interval" id="interval" min="1" max="10" />
+						</label>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -71,7 +79,10 @@ export default {
 			showArrows: false,
 			flickerTimeout: '',
 			countdownInterval: '',
-			dotActive: false
+			dotActive: false,
+			countdown: null,
+			settingsOpen: false,
+			showHint: false
 		}
 	},
 	computed: {
@@ -151,6 +162,10 @@ export default {
 		const interval = localStorage.getItem('interval')
 		if(interval) this.interval = interval
 
+		if(!localStorage.getItem('visited')) {
+			this.showHint = true
+		}
+
 	},
 	methods: {
 
@@ -185,9 +200,14 @@ export default {
 
 			if(this.play) {
 
+				this.showHint = false
+				localStorage.setItem('visited', 'Y')
+				this.settingsOpen = false
+
 				// Countdown
 				let countdown = 5
-				this.buttonText = countdown
+				this.countdown = countdown
+				this.buttonText = 'Stop'
 
 				// Flicker the arrow
 				setTimeout(() => {
@@ -198,7 +218,7 @@ export default {
 
 					if(countdown > 1) {
 						countdown--
-						this.buttonText = countdown
+						this.countdown = countdown
 					}
 
 					else {
@@ -206,7 +226,7 @@ export default {
 						// Clear this interval
 						clearInterval(this.countdownInterval)
 
-						this.buttonText = 'Stop'
+						this.countdown = null
 
 						// Start timer
 						this.timerInterval = setInterval(() => {
@@ -224,6 +244,7 @@ export default {
 
 			else {
 				this.buttonText = 'Go'
+				this.countdown = null
 				this.dotActive = false
 			}
 
